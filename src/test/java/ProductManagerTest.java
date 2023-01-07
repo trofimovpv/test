@@ -58,5 +58,21 @@ class ProductManagerTest {
         Product[] expected = { smartphone1, smartphone2, smartphone3};
 
         Assertions.assertArrayEquals(expected, actual);
+       
+    }
+    
+    @Test
+    public void testModel() {
+        String hp1 = "Harry Potter 1";
+        String author = "Rowling";
+        int price = 100;
+        Book book1 = new Book(1, hp1, price, author);
+        Assertions.assertEquals(book1.getName(), hp1);
+        Assertions.assertEquals(book1.getPrice(), price);
+        Assertions.assertEquals(book1.getAuthor(), author);
+        String apple = "Apple";
+        Smartphone smartphone1 = new Smartphone(1, "iPhone 10", price, apple);
+        Assertions.assertEquals(smartphone1.getVendor(), apple);
+        Assertions.assertEquals(smartphone1.getId(), 1);
     }
 }
