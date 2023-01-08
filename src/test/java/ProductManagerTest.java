@@ -18,10 +18,47 @@ class ProductManagerTest {
         manager.add(book3);
 
         Product[] actual = manager.searchBy("Harry Potter");
-        Product[] expected = { book1, book2};
+        Product[] expected = {book1, book2};
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void testWhenOneProductsFinded() {
+        Repository repo = new Repository();
+        ProductManager manager = new ProductManager(repo);
+        Book book1 = new Book(1, "Harry Potter 1", 100, "Rowling");
+        Book book2 = new Book(2, "Harry Potter 2", 200, "Rowling");
+        Book book3 = new Book(3, "War and Peace", 300, "Tolstoy");
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Product[] actual = manager.searchBy("War and Peace");
+        Product[] expected = {book3};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void testWhenNothingProductsFinded() {
+        Repository repo = new Repository();
+        ProductManager manager = new ProductManager(repo);
+        Book book1 = new Book(1, "Harry Potter 1", 100, "Rowling");
+        Book book2 = new Book(2, "Harry Potter 2", 200, "Rowling");
+        Book book3 = new Book(3, "War and Peace", 300, "Tolstoy");
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Product[] actual = manager.searchBy("Hobbit");
+        Product[] expected = {};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
     @Test
     public void testRemoveProduct() {
         Repository repo = new Repository();
@@ -36,7 +73,7 @@ class ProductManagerTest {
         manager.remove(2);
 
         Product[] actual = repo.findAll();
-        Product[] expected = { book1, book3};
+        Product[] expected = {book1, book3};
 
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -55,12 +92,11 @@ class ProductManagerTest {
         manager.add(smartphone3);
 
         Product[] actual = manager.searchBy("iPhone");
-        Product[] expected = { smartphone1, smartphone2, smartphone3};
+        Product[] expected = {smartphone1, smartphone2, smartphone3};
 
         Assertions.assertArrayEquals(expected, actual);
-       
     }
-    
+
     @Test
     public void testModel() {
         String hp1 = "Harry Potter 1";
@@ -74,5 +110,6 @@ class ProductManagerTest {
         Smartphone smartphone1 = new Smartphone(1, "iPhone 10", price, apple);
         Assertions.assertEquals(smartphone1.getVendor(), apple);
         Assertions.assertEquals(smartphone1.getId(), 1);
+
     }
 }
