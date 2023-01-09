@@ -13,7 +13,12 @@ public class Repository {
         tmp[tmp.length - 1] = product;
         products = tmp;
     }
+
     public void remove(int removeId) {
+        if (findById(removeId) == null) {
+            throw new NotFoundException(removeId);
+        }
+
         Product[] tmp = new Product[products.length - 1];
         int indexTo = 0;
         for (Product product : products) {
@@ -24,4 +29,14 @@ public class Repository {
         }
         products = tmp;
     }
+
+    public Product findById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
 }
+
