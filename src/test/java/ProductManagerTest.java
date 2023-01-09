@@ -112,4 +112,21 @@ class ProductManagerTest {
         Assertions.assertEquals(smartphone1.getId(), 1);
 
     }
+
+    @Test
+    public void testRemoveProductDel() {
+        Repository repo = new Repository();
+        ProductManager manager = new ProductManager(repo);
+        Book book1 = new Book(1, "Harry Potter 1", 100, "Rowling");
+        Book book2 = new Book(2, "Harry Potter 2", 200, "Rowling");
+        Book book3 = new Book(3, "War and Peace", 300, "Tolstoy");
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Assertions.assertThrows(NotFoundException.class,
+                () -> manager.remove(5));
+    }
+
 }
